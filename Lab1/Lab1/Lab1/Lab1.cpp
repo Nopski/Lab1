@@ -58,22 +58,26 @@ void working_file()
 	string str;
 	char temp[100][100]; //временній char'овский массив для обработки данных
 	int i, j, k, count = 0, tmp;
-	do
+	if (working.is_open())
 	{
-		// пробуем считать число
-		if (working >> k)
+		do
 		{
-			// если считали число - выводим
-			cout << k << endl;
-		}
-		else
-		{
-			// если считали не число, очищаем ошибки
-			working.clear();
-			// пропускаем символы до следующего пробела
-			working.ignore(1, ' ');
-		}
-	} while (!working.eof());
+			// пробуем считать число
+			if (working >> k)
+			{
+				// если считали число - выводим
+				cout << k << endl;
+			}
+			else
+			{
+				// если считали не число, очищаем ошибки
+				working.clear();
+				// пропускаем символы до следующего пробела
+				working.ignore(1, ' ');
+			}
+		} while (!working.eof());
+	}
+	else EXIT_FAILURE;
 
 	/*if (working.is_open())
 	{
