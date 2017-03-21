@@ -1,0 +1,4 @@
+﻿  Lab1.cpp
+c:\users\lado\google диск\c++\work\c++_other_projects\lab_op\lab1\lab1\lab1\lab1.cpp(69): error C3861: chislo: идентификатор не найден
+c:\users\lado\google диск\c++\work\c++_other_projects\lab_op\lab1\lab1\lab1\lab1.cpp(75): error C3861: chislo: идентификатор не найден
+c:\users\lado\google диск\c++\work\c++_other_projects\lab_op\lab1\lab1\lab1\lab1.cpp(85): warning C4244: =: преобразование "double" в "int", возможна потеря данных
