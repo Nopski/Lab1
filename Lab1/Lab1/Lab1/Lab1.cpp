@@ -1,17 +1,14 @@
-// Lab1.cpp: определяет точку входа для консольного приложения.
+// Lab1.cpp: РѕРїСЂРµРґРµР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР° РґР»СЏ РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ.
 //
 
 #include "stdafx.h"
-#include <Windows.h>
-#include <iostream>
-#include <fstream>
-#include <cmath>
-#include <conio.h>
-#include <string>
-#include <locale>
 
-using namespace std;
-
+struct info
+{
+	char name[80];
+	int subjects_marks;
+	bool whois;
+};
 
 void reading_file()
 {
@@ -19,17 +16,19 @@ void reading_file()
 	string s;
 	ifstream reading;
 	reading.open("students.txt");
-	//открытие и чтение файла
+	//РѕС‚РєСЂС‹С‚РёРµ Рё С‡С‚РµРЅРёРµ С„Р°Р№Р»Р°
 	if (reading.is_open())
 	{
+		cout << "Weiting we try to read it...\n";
+		Sleep(1000);
 		while (getline(reading, s)) 
-		{ // пока не достигнут конец файла класть очередную строку в переменную (s)
-			SetConsoleCP(1251); //настройка чтения русских букв 
-			SetConsoleOutputCP(1251); //вывод русских букв
-			cout << s << endl; // выводим на экран students.txt
+		{ // РїРѕРєР° РЅРµ РґРѕСЃС‚РёРіРЅСѓС‚ РєРѕРЅРµС† С„Р°Р№Р»Р° РєР»Р°СЃС‚СЊ РѕС‡РµСЂРµРґРЅСѓСЋ СЃС‚СЂРѕРєСѓ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ (s)
+			SetConsoleCP(1251); //РЅР°СЃС‚СЂРѕР№РєР° С‡С‚РµРЅРёСЏ СЂСѓСЃСЃРєРёС… Р±СѓРєРІ 
+			SetConsoleOutputCP(1251); //РІС‹РІРѕРґ СЂСѓСЃСЃРєРёС… Р±СѓРєРІ
+			cout << s << endl; // РІС‹РІРѕРґРёРј РЅР° СЌРєСЂР°РЅ students.txt
 		}
 	}
-	else cout << "Unable to open file"; //выводит на экран проблему с открытием файла
+	else cout << "Unable to open file"; //РІС‹РІРѕРґРёС‚ РЅР° СЌРєСЂР°РЅ РїСЂРѕР±Р»РµРјСѓ СЃ РѕС‚РєСЂС‹С‚РёРµРј С„Р°Р№Р»Р°
 	reading.close(); 
 }
 
@@ -41,11 +40,11 @@ void copy_file()
 	ofstream fout;
 	fout.open("rating.txt");
 	char ch;
-	// копирование данных из students.txt в rating.txt
+	// РєРѕРїРёСЂРѕРІР°РЅРёРµ РґР°РЅРЅС‹С… РёР· students.txt РІ rating.txt
 	while (!fin.eof())
 	{
-		SetConsoleCP(1251); //настройка чтения русских букв 
-		SetConsoleOutputCP(1251); //вывод русских букв
+		SetConsoleCP(1251); //РЅР°СЃС‚СЂРѕР№РєР° С‡С‚РµРЅРёСЏ СЂСѓСЃСЃРєРёС… Р±СѓРєРІ 
+		SetConsoleOutputCP(1251); //РІС‹РІРѕРґ СЂСѓСЃСЃРєРёС… Р±СѓРєРІ
 		fin.get(ch);
 		fout << ch;
 	}
@@ -55,39 +54,44 @@ void copy_file()
 void working_file()
 {
 	ifstream working;
-	working.open("rating.txt");
+	working.open("rating.txt", ios_base::in);
 	string str;
-	int x, y, z, h, k, count = 0, i = 0, tmp;
-	if (working.is_open())
+	char temp[100][100]; //РІСЂРµРјРµРЅРЅС–Р№ char'РѕРІСЃРєРёР№ РјР°СЃСЃРёРІ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РґР°РЅРЅС‹С…
+	int i, j, k, count = 0, tmp;
+	do
 	{
-		while (getline(working, str))
+		// РїСЂРѕР±СѓРµРј СЃС‡РёС‚Р°С‚СЊ С‡РёСЃР»Рѕ
+		if (working >> k)
 		{
-			while (str[i] != ' ')
-			{
-				count++; i++;
-			}
-			x = chislo(&str[0], count);
-			count = 0; ++i;
-			while (str[i]) 
-			{
-				++count; ++i;
-			}
-			y = chislo(&str[i - count], count);
-			count = 0; i = 0;
-			cout << x << " " << y << "\n";
+			// РµСЃР»Рё СЃС‡РёС‚Р°Р»Рё С‡РёСЃР»Рѕ - РІС‹РІРѕРґРёРј
+			cout << k << endl;
+		}
+		else
+		{
+			// РµСЃР»Рё СЃС‡РёС‚Р°Р»Рё РЅРµ С‡РёСЃР»Рѕ, РѕС‡РёС‰Р°РµРј РѕС€РёР±РєРё
+			working.clear();
+			// РїСЂРѕРїСѓСЃРєР°РµРј СЃРёРјРІРѕР»С‹ РґРѕ СЃР»РµРґСѓСЋС‰РµРіРѕ РїСЂРѕР±РµР»Р°
+			working.ignore(1, ' ');
+		}
+	} while (!working.eof());
+
+	/*if (working.is_open())
+	{
+		while (working >> k)
+		{
+			k = atof(str.c_str());
+			cout << k << endl;
+		}
+		working.getline(temp, 40);
+		k = atoi(temp);
+		for (i = 0; i < k; i++)
+		{
+
 		}
 	}
-	else cout << "Unable to open file";
-}
+	else cout << "Unable to open file";*/
 
-int chislo(char *tmp, int razr) {
-	int temp, chislo_ = 0, dec = 10, i = 0;
-	temp = pow(dec, razr);
-	while (temp != 1) {
-		chislo_ = chislo_ + (tmp[i] - '0') * temp;
-		temp /= dec; ++i;
-	}
-	return chislo_ / dec;
+	working.close();
 }
 
 int main()
